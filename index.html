@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Quote from api</title>
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
+    <main>
+      <!-- TODO: need to add image tag her rather than background image -->
+      <!-- TODO: so able to make random image when new quote fetch -->
+      <blockquote>
+        <p>
+          The greatest glory in living lies not in never falling, but in rising
+          every time we fall. The way to get started is to quit talking and
+          begin doing. And most important, have the courage to follow your heart
+          and intuition. They somehow already know what you truly want to
+          become. Everything else is secondary.
+        </p>
+        <footer>&mdash; <cite>Steve Jobs</cite></footer>
+        <div class="action-wrapper">
+          <button title="copy quote" id="copy" disabled>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+              />
+            </svg>
+          </button>
+          <!-- TODO: Need to change refetch icon to + icon -->
+          <button title="New Quote" id="refetch" disabled>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+          </button>
+          <!-- TODO: share in twitter need to check and find -->
+          <button title="Share via twitter" id="share-twitter" disabled>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+              viewBox="0 0 50 50"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M 6.9199219 6 L 21.136719 26.726562 L 6.2285156 44 L 9.40625 44 L 22.544922 28.777344 L 32.986328 44 L 43 44 L 28.123047 22.3125 L 42.203125 6 L 39.027344 6 L 26.716797 20.261719 L 16.933594 6 L 6.9199219 6 z"
+              ></path>
+            </svg>
+          </button>
+          <button title="Download as Image" id="download" disabled>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="loading active">
+          <span class="indicator"></span>
+          <p>loading new quote ...</p>
+        </div>
+      </blockquote>
+    </main>
+
+    <script src="script/script.js"></script>
+  </body>
+</html>
