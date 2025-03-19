@@ -9,6 +9,9 @@ const downloadButtonElement = mainElement.querySelector("#download");
 const tweetButtonElement = mainElement.querySelector(".twitter-share-button");
 const actionElementsWrapper =
   blockQuoteElement.querySelector(".action-wrapper");
+const backgroundImageElement = document.querySelector(".background-image");
+
+const randomImageUrl = "https://picsum.photos/1280/720?blur&random=";
 
 function generateQuoteWithAuthorInString(quote, author) {
   return `"${quote}" -${author}`;
@@ -61,6 +64,10 @@ async function fetchRandomQuoteFromApi() {
       "href",
       generateTweetUrl(generateQuoteWithAuthorInString(content, author))
     );
+    // TODO: need to create util function for below 3 lines
+    const array = new Uint32Array(1);
+    globalThis.crypto.getRandomValues(array);
+    backgroundImageElement.setAttribute("src", randomImageUrl + array[0]);
   } catch (error) {
     console.log("Failed to get data from api:", error);
     alert("Could not able to fetch new quote from api!!!");
