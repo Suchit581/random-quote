@@ -11,22 +11,6 @@ const actionElementsWrapper =
   blockQuoteElement.querySelector(".action-wrapper");
 const backgroundImageElement = document.querySelector(".background-image");
 
-const randomImageUrl = "https://picsum.photos/1280/720?blur&random=";
-
-function generateQuoteWithAuthorInString(quote, author) {
-  return `"${quote}" -${author}`;
-}
-function generateTweetUrl(stringContent = "") {
-  if (!stringContent) {
-    return "";
-  }
-  const base = new URL("https://twitter.com/intent/tweet");
-  const params = new URLSearchParams({
-    text: encodeURI(stringContent),
-  });
-  return `${base.toString()}?${params.toString()}`;
-}
-
 function toggleLoading(status = false) {
   const isLoadingActive = loadingElement.classList.contains("active");
   if (isLoadingActive && !status) {
@@ -47,7 +31,7 @@ function toggleLoading(status = false) {
 
 async function fetchRandomQuoteFromApi() {
   toggleLoading(true);
-  const url = "https://api.freeapi.app/api/v1/public/quotes/quote/random";
+  const url = randomQuoteApiUrl;
   const options = { method: "GET", headers: { accept: "application/json" } };
   try {
     const response = await fetch(url, options);
@@ -64,10 +48,7 @@ async function fetchRandomQuoteFromApi() {
       "href",
       generateTweetUrl(generateQuoteWithAuthorInString(content, author))
     );
-    // TODO: need to create util function for below 3 lines
-    const array = new Uint32Array(1);
-    globalThis.crypto.getRandomValues(array);
-    backgroundImageElement.setAttribute("src", randomImageUrl + array[0]);
+    backgroundImageElement.setAttribute("src", generateRandomImageUrl());
   } catch (error) {
     console.log("Failed to get data from api:", error);
     alert("Could not able to fetch new quote from api!!!");
@@ -84,12 +65,12 @@ function copyClickHandler() {
     )
   );
   alert("Copy quote into your clipboard");
-  document.activeElement?.blur?.();
+  blurCurrentActiveElement();
 }
 
 function refetchClickHandler() {
   fetchRandomQuoteFromApi();
-  document.activeElement?.blur?.();
+  blurCurrentActiveElement();
 }
 
 async function downloadClickHandler() {
@@ -108,6 +89,8 @@ async function downloadClickHandler() {
     link.download = `${content}.jpeg`;
     link.href = dataUrl;
     link.click();
+    link.remove();
+    blurCurrentActiveElement();
   } catch (error) {
     console.log("Download Issue Found Error:", error);
     alert("Something went wrote while downloading as png!!!");
@@ -118,10 +101,10 @@ async function downloadClickHandler() {
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchRandomQuoteFromApi();
+  copyButtonElement.addEventListener("click", copyClickHandler);
+  refetchButtonElement.addEventListener("click", refetchClickHandler);
+  downloadButtonElement.addEventListener("click", downloadClickHandler);
+  tweetButtonElement.addEventListener("click", () => {
+    blurCurrentActiveElement();
+  });
 });
-
-copyButtonElement.addEventListener("click", copyClickHandler);
-
-refetchButtonElement.addEventListener("click", refetchClickHandler);
-
-downloadButtonElement.addEventListener("click", downloadClickHandler);
